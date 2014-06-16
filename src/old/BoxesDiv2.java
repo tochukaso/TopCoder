@@ -1,3 +1,4 @@
+package old;
 import java.util.*;
 import java.util.regex.*;
 import java.text.*;
@@ -8,64 +9,7 @@ public class BoxesDiv2
 {
 	public int findSize(int[] candyCounts)
 	{
-		List<Integer> list = new ArrayList<Integer>();
-		Arrays.sort(candyCounts);
-		for (int i = candyCounts.length -1; i >= 0; i--) {
-			list.add(candyCounts[i]);
-		}
-		
-		while(list.size() > 1) {
-			boolean isUpdate = false;
-			boolean[] isIntegrate = new boolean[list.size()];
-			for (int i = list.size() - 1; i > 0; i--) {
-				if (isIntegrate[i]) continue;
-				int now = list.get(i);
-				int boxSize = 1;
-				for (int j = 1; j < 32; j++) {
-					if (now <= boxSize) {
-						break;
-					}
-					boxSize *= 2;
-				}
-				int rest = boxSize - now;
-				for (int j = i - 1; j >= 0; j--) {
-					if (rest == 0) break;
-					if (isIntegrate[j]) continue;
-					int target = list.get(j);
-					if (rest >= target) {
-						rest -= target;
-						now += target;
-						list.set(i, now);
-						isIntegrate[j] = true;
-						isUpdate = true;
-					}
-				}		
-			}
-			
-			if (!isUpdate) {
-				int marge1 = list.get(0);
-				int marge2 = list.get(1);
-				isIntegrate[0] = true;
-				int integrated = marge1 + marge2;
-				int boxSize = 1;
-				for (int j = 1; j < 32; j++) {
-					if (integrated <= boxSize) {
-						break;
-					}
-					boxSize *= 2;
-				}
-				list.set(1, boxSize);
-			}
-			
-			List<Integer> nextList = new ArrayList<Integer>();			
-			for (int i = 0; i < isIntegrate.length; i++) {
-				if (!isIntegrate[i]) {
-					nextList.add(list.get(i));
-				}
-			}
-			list = nextList;
-		}
-		return list.get(0);		
+		return 0;
 	}
 	
 	// BEGIN KAWIGIEDIT TESTING

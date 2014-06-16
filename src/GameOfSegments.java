@@ -4,24 +4,17 @@ import java.text.*;
 import java.math.*;
 
 
-public class FibonacciDiv2
+public class GameOfSegments
 {
-
-	public int find(int N)
+	public int winner(int N)
 	{
-		
-		int before = 1;
-		int now= 1;
-		while (true) {
-			if (N == now) return 0;
-			if (N < now) {
-				return (int) Math.min(Math.abs(N - now), Math.abs(N - before));
-			}
-			int tmp = now;
-			now = tmp + before;
-			before = tmp;
-		}		
-				
+	    if (N <= 4) {
+	        return 1;
+	    }
+	    
+//	    return isP ? 1 : 2;
+	    return N % 2 == 1 ? 2 : 1;
+	    
 	}
 	
 	// BEGIN KAWIGIEDIT TESTING
@@ -29,11 +22,11 @@ public class FibonacciDiv2
 	private static boolean KawigiEdit_RunTest(int testNum, int p0, boolean hasAnswer, int p1) {
 		System.out.print("Test " + testNum + ": [" + p0);
 		System.out.println("]");
-		FibonacciDiv2 obj;
+		GameOfSegments obj;
 		int answer;
-		obj = new FibonacciDiv2();
+		obj = new GameOfSegments();
 		long startTime = System.currentTimeMillis();
-		answer = obj.find(p0);
+		answer = obj.winner(p0);
 		long endTime = System.currentTimeMillis();
 		boolean res;
 		res = true;
@@ -72,16 +65,16 @@ public class FibonacciDiv2
 		
 		// ----- test 0 -----
 		disabled = false;
-		p0 = 1;
-		p1 = 0;
+		p0 = 6;
+		p1 = 1;
 		all_right = (disabled || KawigiEdit_RunTest(0, p0, true, p1) ) && all_right;
 		tests_disabled = tests_disabled || disabled;
 		// ------------------
 		
 		// ----- test 1 -----
 		disabled = false;
-		p0 = 13;
-		p1 = 0;
+		p0 = 4;
+		p1 = 1;
 		all_right = (disabled || KawigiEdit_RunTest(1, p0, true, p1) ) && all_right;
 		tests_disabled = tests_disabled || disabled;
 		// ------------------
@@ -96,17 +89,9 @@ public class FibonacciDiv2
 		
 		// ----- test 3 -----
 		disabled = false;
-		p0 = 19;
+		p0 = 191;
 		p1 = 2;
 		all_right = (disabled || KawigiEdit_RunTest(3, p0, true, p1) ) && all_right;
-		tests_disabled = tests_disabled || disabled;
-		// ------------------
-		
-		// ----- test 4 -----
-		disabled = false;
-		p0 = 1000000;
-		p1 = 167960;
-		all_right = (disabled || KawigiEdit_RunTest(4, p0, true, p1) ) && all_right;
 		tests_disabled = tests_disabled || disabled;
 		// ------------------
 		
@@ -121,71 +106,57 @@ public class FibonacciDiv2
 		}
 	}
 	// PROBLEM STATEMENT
-	// The Fibonacci sequence is defined as follows:
+	// Rij?l is a very wise teacher. He loves mathematics, especially games and geometry problems. Recently one of his students challenged him to the following game:
 	// 
-	// F[0] = 0
-	// F[1] = 1
-	// for each i >= 2: F[i] = F[i-1] + F[i-2]
+	// Initially, there is a polygon with N vertices drawn in the plane. The polygon is strictly convex, i.e., each internal angle is strictly smaller than 180 degrees. The vertices of the polygon are numbered 1 through N, in clockwise order.
 	// 
-	// Thus, the Fibonacci sequence starts as follows: 0, 1, 1, 2, 3, 5, 8, 13, ...
-	// The elements of the Fibonacci sequence are called Fibonacci numbers.
+	// Two players play the game on this polygon. The players take alternating turns. In each turn, the current player chooses a diagonal or a side of the polygon and draws it as a straight line segment. (A diagonal of the polygon is a line segment that connects any two non-adjacent vertices of the polygon.) The player is only allowed to choose a diagonal or a side that does not intersect any of the previously drawn segments (it must not share endpoints with any of them either). The player who cannot draw a diagonal or a side according to the above rules loses the game.
 	// 
-	// You're given an int N.
-	// You want to change N into a Fibonacci number.
-	// This change will consist of zero or more steps.
-	// In each step, you can either increment or decrement the number you currently have.
-	// That is, in each step you can change your current number X either to X+1 or to X-1.
+	// You are given the int N.
 	// 
-	// Return the smallest number of steps needed to change N into a Fibonacci number.
+	// We assume that both players play the game optimally. Return 1 if the first player wins and 2 otherwise.
 	// 
 	// DEFINITION
-	// Class:FibonacciDiv2
-	// Method:find
+	// Class:GameOfSegments
+	// Method:winner
 	// Parameters:int
 	// Returns:int
-	// Method signature:int find(int N)
+	// Method signature:int winner(int N)
 	// 
 	// 
 	// CONSTRAINTS
-	// -N will be between 1 and 1,000,000, inclusive.
+	// -N will be between 3 and 1,000, inclusive.
 	// 
 	// 
 	// EXAMPLES
 	// 
 	// 0)
-	// 1
+	// 3
 	// 
-	// Returns: 0
+	// Returns: 1
 	// 
-	// The number 1 is already a Fibonacci number. No changes are necessary.
+	// This polygon has zero diagonals and three sides. The first player will always win no matter which side he picks.
 	// 
 	// 1)
-	// 13
+	// 4
 	// 
-	// Returns: 0
+	// Returns: 1
 	// 
-	// The number 13 is also a Fibonacci number.
+	// This polygon has four sides and two diagonals. The first player wins the game if he takes one of the diagonals, because he will leave no choice for the second player.
 	// 
 	// 2)
 	// 15
 	// 
 	// Returns: 2
 	// 
-	// The best way to change 15 into a Fibonacci number is to decrement it twice in a row (15 -> 14 -> 13).
+	// 
 	// 
 	// 3)
-	// 19
+	// 191
 	// 
 	// Returns: 2
 	// 
-	// You can increase it by 2 to get 21.
 	// 
-	// 4)
-	// 1000000
-	// 
-	// Returns: 167960
-	// 
-	// This is the biggest possible number that you can get as input.
 	// 
 	// END KAWIGIEDIT TESTING
 }
