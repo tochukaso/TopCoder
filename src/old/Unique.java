@@ -1,6 +1,4 @@
 package old;
-
-
 import java.util.*;
 import java.util.regex.*;
 import java.text.*;
@@ -11,13 +9,18 @@ public class Unique
 {
 	public String removeDuplicates(String S)
 	{
-		StringBuilder b = new StringBuilder();
-		char[] c = S.toCharArray();
+		char[] x = S.toCharArray();
+		boolean[] used = new boolean[30];
 		
-		for (char a : c) {
-			if (b.indexOf(String.valueOf(a)) == -1) b.append(a); 
+		String res = "";
+		for (char c : x) {
+			if (!used[c - 'a']) {
+				res +=c;
+				used[c - 'a'] = true;
+			}
 		}
-		return b.toString();
+		return res;
+						
 	}
 	
 	// BEGIN KAWIGIEDIT TESTING

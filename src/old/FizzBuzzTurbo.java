@@ -1,6 +1,4 @@
 package old;
-
-
 import java.util.*;
 import java.util.regex.*;
 import java.text.*;
@@ -11,23 +9,21 @@ public class FizzBuzzTurbo
 {
 	public long[] counts(long A, long B)
 	{
+		A--;
 		long[] res = new long[3];
-		long f = A / 3;
-		if ( A % 3 == 0) f --;
-		long f2 = B / 3;
+		long sFB = A / 15;
+		long sF = A / 3 - sFB;
+		long sB = A / 5 - sFB;
 
-		long b = A / 5;
-		if ( A % 5 == 0) b --;
-		long b2 = B / 5;
-
-		long fb = A / 15;
-		if ( A % 15 == 0) fb --;
-		long fb2 = B / 15;
-
-		res[2] = fb2 - fb;
-		res[0] = f2 - f - res[2];
-		res[1] = b2 - b - res[2];
+		long tFB = B / 15;
+		long tF = B / 3 - tFB - sF;
+		long tB = B / 5 - tFB - sB;
+		tFB -=sFB;
 		
+		res[0] = tF;
+		res[1] = tB;
+		res[2] = tFB;
+				
 		return res;
 	}
 	
