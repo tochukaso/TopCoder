@@ -1,3 +1,4 @@
+package SRM490_495;
 
 public class SumOfPower
 {
